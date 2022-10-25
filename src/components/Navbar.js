@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 
 export default function Navbar(props) {
   return (
@@ -22,9 +22,9 @@ export default function Navbar(props) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">
+                <href className="nav-link active" aria-current="page" to="/">
                   Home
-                </a>
+                </href>
               </li>
             </ul>
             <div className="form-check form-switch mx-3">
