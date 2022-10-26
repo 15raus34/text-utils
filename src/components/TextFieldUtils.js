@@ -3,13 +3,10 @@ import Preview from "./Preview";
 
 export default function TextData(props) {
   const [text, newText] = useState("");
-  const [words,currentWord] = useState(0);
 
   //TO HANDLE WHEN USER WRITE SOMETHING
   const handleOnChange = (event) => {
     newText(event.target.value);
-    const newWordLength = text.split(" ").length;
-    currentWord(newWordLength);
   };
 
   //TO CLEAR TEXT FIELD
@@ -66,7 +63,8 @@ export default function TextData(props) {
             type="button"
             className={`btn btn-${
               props.mode === "light" ? "dark" : "light"
-            } mx-2`}
+            } mx-2 my-2`}
+            disabled={text.length===0}
             onClick={clearField}
           >
             Clear Field
@@ -75,7 +73,8 @@ export default function TextData(props) {
             type="button"
             className={`btn btn-${
               props.mode === "light" ? "dark" : "light"
-            } mx-2`}
+            } mx-2 my-2`}
+            disabled={text.length===0}
             onClick={changeToUppercase}
           >
             Change To UpperCase
@@ -84,7 +83,8 @@ export default function TextData(props) {
             type="button"
             className={`btn btn-${
               props.mode === "light" ? "dark" : "light"
-            } mx-2`}
+            } mx-2 my-2`}
+            disabled={text.length===0}
             onClick={changeToLowercase}
           >
             Change to LowerCase
@@ -93,7 +93,8 @@ export default function TextData(props) {
             type="button"
             className={`btn btn-${
               props.mode === "light" ? "dark" : "light"
-            } mx-2`}
+            } mx-2 my-2`}
+            disabled={text.length===0}
             onClick={removeExtraSpaces}
           >
             Remove Extra Spaces
@@ -102,14 +103,15 @@ export default function TextData(props) {
             type="button"
             className={`btn btn-${
               props.mode === "light" ? "dark" : "light"
-            } mx-2`}
+            } mx-2 my-2`}
+            disabled={text.length===0}
             onClick={copyToClipBoard}
           >
             Copy To Clipboard
           </button>
         </div>
       </div>
-      <Preview mode={props.mode} text={text} word={words}/>
+      <Preview mode={props.mode} text={text} word={text.split(/\s+/).filter((element)=>{return element.length!==0}).length}/>
     </>
   );
 }
