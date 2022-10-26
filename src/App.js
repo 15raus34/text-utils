@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Alert from "./components/Alert";
 import TextFieldUtils from "./components/TextFieldUtils";
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 function App() {
   const [mode, toggleMode] = useState("light");
   const [alert, newAlert] = useState(null);
@@ -18,11 +20,11 @@ function App() {
     }
   };
 
-  const showAlert = (mesg,type) => {
+  const showAlert = (mesg, type) => {
     newAlert({
-      message:mesg,
-      type:type
-    })
+      message: mesg,
+      type: type,
+    });
 
     setTimeout(() => {
       newAlert(null);
@@ -30,11 +32,13 @@ function App() {
   };
 
   return (
-    <>
+    <Router>
       <Navbar mode={mode} modeToggle={modeToggle} />
       <Alert alert={alert} />
-      <TextFieldUtils mode={mode} showAlert={showAlert}/>
-    </>
+      <Routes>
+        <Route path="/" element={<TextFieldUtils mode={mode} showAlert={showAlert} />}/>
+      </Routes>
+    </Router>
   );
 }
 
