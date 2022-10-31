@@ -41,6 +41,12 @@ export default function TextData(props) {
     navigator.clipboard.writeText(text);
     props.showAlert("Copied To ClipBoard","info");
   };
+
+  const capitalizeTextField = () => {
+  let capitalizedTextField = text.split(/[ ]+/).map((element)=>{return element[0].toUpperCase()+element.slice(1).toLowerCase()});
+  newText(capitalizedTextField.join(" "));
+    props.showAlert("Capitalized","success");
+  };
   return (
     <>
       <div className="container my-4">
@@ -108,6 +114,16 @@ export default function TextData(props) {
             onClick={copyToClipBoard}
           >
             Copy To Clipboard
+          </button>
+          <button
+            type="button"
+            className={`btn btn-${
+              props.mode === "light" ? "dark" : "light"
+            } mx-2 my-2`}
+            disabled={text.length===0}
+            onClick={capitalizeTextField}
+          >
+            Capitalize
           </button>
         </div>
       </div>
