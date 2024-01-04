@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../context/ThemeProvider";
 
-export default function Preview(props) {
+export default function Preview({word,text}) {
+  const useThemeContext = useContext(ThemeContext);
+  const {mode} = useThemeContext;
   return (
     <div
       className="container my-4"
-      style={{ color: props.mode === "light" ? "black" : "white" }}
+      style={{ color: mode === "light" ? "black" : "white" }}
     >
       <h1>Summary:</h1>
       <b>
         <p>
-          {props.word} WORDS AND {props.text.length} CHARACTERS
+          {word} {word<=1?"WORD":"WORDS"} AND {text.length} {text.length<=1?"CHARACTER":"CHARACTERS"}
         </p>
       </b>
-      <div className="my-5">
+      {text === "" ? null : <div className="my-5">
         <h3>PREVIEW:</h3>
-        <p>{props.text}</p>
-      </div>
+        <p>{text}</p>
+      </div>}
     </div>
   );
 }

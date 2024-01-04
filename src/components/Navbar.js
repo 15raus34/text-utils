@@ -1,17 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeProvider";
 
-export default function Navbar(props) {
+
+export default function Navbar() {
+
+  const useThemeContext = useContext(ThemeContext);
+  const { mode, modeToggle } = useThemeContext;
+
+  const colorBox = (color) => {
+    return (<div
+      className={`bg-${color} rounded mx-2`}
+      onClick={() => modeToggle(`${color}`)}
+      style={{ height: "35px", width: "35px" }}
+    ></div>);
+  };
+
   return (
     <>
       <nav
-        className={`navbar navbar-expand-lg navbar-${
-          props.mode === "light" ? "light" : "dark"
-        } bg-${props.mode === "light" ? "light" : "dark"}`}
+        className={`navbar navbar-expand-lg navbar-${mode} bg-${mode}`}
       >
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            TINY UTILS BY RAUS
+            <img src="./logo.png" className="logo" alt="Text Utils" />
           </Link>
           <button
             className="navbar-toggler"
@@ -27,56 +39,39 @@ export default function Navbar(props) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
+                <NavLink className={`nav-link fw-bold`} aria-current="page" to="/" end>
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  className="nav-link active"
+                <NavLink
+                  className={`nav-link fw-bold`}
                   aria-current="page"
                   to="/about"
                 >
                   About Us
-                </Link>
+                </NavLink>
               </li>
             </ul>
             <div className="d-flex justify-content-center align-items-center">
-              <div
-                className="bg-primary rounded mx-2"
-                onClick={() => props.modeToggle("primary")}
-                style={{ height: "35px", width: "35px" }}
-              ></div>
-              <div
-                className="bg-success rounded mx-2"
-                onClick={() => props.modeToggle("success")}
-                style={{ height: "35px", width: "35px" }}
-              ></div>
-              <div
-                className="bg-warning rounded mx-2"
-                onClick={() => props.modeToggle("warning")}
-                style={{ height: "35px", width: "35px" }}
-              ></div>
-              <div
-                className="bg-danger rounded mx-2"
-                onClick={() => props.modeToggle("danger")}
-                style={{ height: "35px", width: "35px" }}
-              ></div>
+              {colorBox("primary")}
+              {colorBox("warning")}
+              {colorBox("danger")}
+              {colorBox("success")}
               <div className="form-check form-switch mx-3">
                 <input
                   className="form-check-input"
                   type="checkbox"
                   role="switch"
                   id="flexSwitchCheckDefault"
-                  onClick={() => props.modeToggle(null)}
+                  onClick={() => modeToggle(null)}
                 />
                 <label
-                  className={`form-check-label text-${
-                    props.mode === "light" ? "dark" : "light"
-                  }`}
+                  className={`form-check-label text-${mode === "light" ? "dark" : "light"
+                    }`}
                   htmlFor="flexSwitchCheckDefault"
                 >
-                  {props.mode === "light"
+                  {mode === "light"
                     ? "Enable Dark Mode"
                     : "Disable Dark Mode"}
                 </label>
